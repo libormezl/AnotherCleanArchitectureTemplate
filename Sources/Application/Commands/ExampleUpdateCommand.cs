@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Notifications;
 using MediatR;
 
 namespace Application.Commands
@@ -9,13 +10,15 @@ namespace Application.Commands
 
     public record ExampleUpdateCommand(Guid Id, int NewValue) : IRequest;
 
-    internal class ExampleUpdateCommandHandler(IExampleRepository repository) : IRequestHandler<ExampleUpdateCommand>
+    internal class ExampleUpdateCommandHandler(IExampleRepository repository, ISender sender) : IRequestHandler<ExampleUpdateCommand>
     {
         public async Task Handle(ExampleUpdateCommand updateCommand, CancellationToken cancellationToken)
         {
             var example = await repository.GetAsync(updateCommand.Id);
             example.Value = updateCommand.NewValue;
             await repository.UpdateAsync(example);
+
+            await sender.Send(new ExampleUpdatedNotification(example), cancellationToken);
         }
     }
 }

@@ -1,9 +1,9 @@
 # AnotherCleanArchitectureTemplate
 
+**!! The project run may not be working, but the solution structure is correct. !!**
+
 Base solution template for Clean Architecture. Project dependencies are illustrated in the image below.
-
 ![alt text](Docs/Images/project-dependencies.png)
-
 
 # Domain project
 - This project contains the domain layer of the application, which includes domain entities, custom domain exceptions, and custom types.
@@ -11,10 +11,12 @@ Base solution template for Clean Architecture. Project dependencies are illustra
 - It should not have any dependencies on other projects.
 
 # Application project
-- This project contains business logic (e.g., Mediator commands and queries) and interfaces for repositories and other infrastructure services.
+- This project contains business logic. It is recommended to use Mediator commands, queries, and notifications instead of a service layer implemented with interfaces. Interfaces should be used only to access external dependency services from the infrastructure layer.
 - Together with the Domain project, it forms the Core of the Clean Architecture.
+- Should respect CQRS principle.
 - Every command or query should have its own request.
 - Every query should have its own response with appropriate DTOs.
+- Notifications should be used for domain events (domain changes).
 - It should depend only on the Domain project.
 - The output of this layer should be DTOs, not domain entities.
 
