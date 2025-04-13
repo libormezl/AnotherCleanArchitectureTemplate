@@ -6,10 +6,4 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-    <Folder Include="CustomTypes\" />
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
 </Project>
